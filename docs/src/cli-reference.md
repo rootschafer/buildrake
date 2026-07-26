@@ -1,21 +1,21 @@
 <!-- Generated from the clap definitions by tests/docs.rs.
      Do not edit; run `UPDATE_DOCS=1 cargo test`. -->
 
-# Command-Line Help for `rustsweep`
+# Command-Line Help for `buildrake`
 
-This document contains the help content for the `rustsweep` command-line program.
+This document contains the help content for the `buildrake` command-line program.
 
 **Command Overview:**
 
-* [`rustsweep`↴](#rustsweep)
+* [`buildrake`↴](#buildrake)
 
-## `rustsweep`
+## `buildrake`
 
 Frees disk space by cleaning the build artifacts of every Rust project under a directory, including the stray build dirs `cargo clean` can't reach.
 
-**Usage:** `rustsweep [OPTIONS]`
+**Usage:** `buildrake [OPTIONS]`
 
-Defaults for these options can be set in ~/.config/rustsweep/config.toml (a command-line flag always wins). That file also holds the global ignore list; --ignore adds to it rather than replacing it.
+Defaults for these options can be set in ~/.config/buildrake/config.toml (a command-line flag always wins). That file also holds the global ignore list; --ignore adds to it rather than replacing it.
 
 ###### **Options:**
 

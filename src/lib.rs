@@ -1,15 +1,15 @@
 //! Frees disk space by cleaning the build artifacts of Rust projects under a
 //! directory — including the stray build directories `cargo clean` can't reach.
 //!
-//! This crate is the internals of the `rustsweep` **command-line tool**, not a
+//! This crate is the internals of the `buildrake` **command-line tool**, not a
 //! general-purpose library: it's split into a lib so the integration suite can
 //! drive the same code the binary runs. The only public entry point is
 //! [`cli::run_cli`], which parses arguments and executes the whole pipeline.
-//! If you're looking to *use* rustsweep, the command-line tool and its
+//! If you're looking to *use* buildrake, the command-line tool and its
 //! documentation are what you want:
 //!
-//! - **User guide:** <https://rootschafer.github.io/rustsweep/>
-//! - **Source & issues:** <https://github.com/rootschafer/rustsweep>
+//! - **User guide:** <https://rootschafer.github.io/buildrake/>
+//! - **Source & issues:** <https://github.com/rootschafer/buildrake>
 //!
 //! # How it works
 //!
@@ -28,7 +28,7 @@
 //! (Those three stages are private modules — the pipeline is an implementation
 //! detail of the binary, not a supported API.)
 
-/// Library documentation. If you're here to use the `rustsweep` cli: you should stop and go to the User Guide at <https://rootschafer.github.io/rustsweep/>
+/// Library documentation. If you're here to use the `buildrake` cli: you should stop and go to the User Guide at <https://rootschafer.github.io/buildrake/>
 pub mod cli;
 
 mod clean;

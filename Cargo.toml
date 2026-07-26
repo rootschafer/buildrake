@@ -1,10 +1,10 @@
 [package]
-name = "rustsweep"
+name = "buildrake"
 version = "0.1.4"
 edition = "2024"
 description = "Frees disk space by cleaning the build artifacts of every Rust project under a directory, including the stray build dirs `cargo clean` can't reach."
-repository = "https://github.com/rootschafer/rustsweep"
-homepage = "https://rootschafer.github.io/rustsweep/"
+repository = "https://github.com/rootschafer/buildrake"
+homepage = "https://rootschafer.github.io/buildrake/"
 # Matches the LICENSE file (MIT only).
 license = "MIT"
 readme = "README.md"
@@ -18,8 +18,22 @@ categories = ["command-line-utilities", "development-tools::cargo-plugins"]
 # test that cannot pass.
 exclude = ["notes/", "docs/", "tests/docs.rs", "config.example.toml"]
 
+# Lets `cargo binstall buildrake` fetch a prebuilt binary from the GitHub
+# release instead of compiling. The URL and layouts below match what dist
+# produces (see dist-workspace.toml; verified against `dist plan`): archives
+# are versionless buildrake-<target> files, the tarball nests a
+# buildrake-<target>/ root dir, the Windows zip has the binary at its root.
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/{ name }-{ target }{ archive-suffix }"
+pkg-fmt = "txz"
+bin-dir = "{ name }-{ target }/{ bin }{ binary-ext }"
+
+[package.metadata.binstall.overrides.x86_64-pc-windows-msvc]
+pkg-fmt = "zip"
+bin-dir = "{ bin }{ binary-ext }"
+
 [[bin]]
-name = "rustsweep"
+name = "buildrake"
 test = false
 bench = false
 

@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-# Smoke-drives the real rustsweep binary against throwaway fixture trees:
+# Smoke-drives the real buildrake binary against throwaway fixture trees:
 # dry-run reporting, the interactive y/n prompt, --yes, --orphans, and the
 # CACHEDIR.TAG safety rule. Exits 0 iff every check passes. Never touches
-# anything outside its own mktemp dir, and pins RUSTSWEEP_CONFIG so the
+# anything outside its own mktemp dir, and pins BUILDRAKE_CONFIG so the
 # user's real config can't perturb the run.
 set -euo pipefail
 
 repo=$(cd "$(dirname "$0")/../../.." && pwd)
 cd "$repo"
 cargo build --quiet
-BIN="$repo/target/debug/rustsweep"
+BIN="$repo/target/debug/buildrake"
 
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
-export RUSTSWEEP_CONFIG="$work/no-such-config.toml" # hermetic: ignore any real user config
+export BUILDRAKE_CONFIG="$work/no-such-config.toml" # hermetic: ignore any real user config
 
 note() { printf '\n== %s\n' "$*"; }
 die() {
@@ -22,7 +22,7 @@ die() {
 }
 
 # The tag cargo writes into every build dir; its body containing "cargo" is
-# what makes rustsweep treat a directory as deletable at all.
+# what makes buildrake treat a directory as deletable at all.
 cargo_tag='Signature: 8a477f597d28d172789f06886806bc55
 # This file is a cache directory tag created by cargo.'
 
@@ -38,7 +38,7 @@ make_build_dir() { # <dir> — fabricated cargo build dir with a ~2MiB artifact
 }
 
 note "binary answers --version"
-"$BIN" --version | grep -q rustsweep || die "--version"
+"$BIN" --version | grep -q buildrake || die "--version"
 
 note "dry run reports sizes and deletes nothing"
 fx="$work/dry"

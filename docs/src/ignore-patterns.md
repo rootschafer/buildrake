@@ -6,12 +6,12 @@ therefore never cleaned. Matching a directory prunes the whole subtree.
 Patterns come from two places, and they combine:
 
 ```toml
-# ~/.config/rustsweep/config.toml
+# ~/.config/buildrake/config.toml
 ignore = ["vendor", "~/Code/Rust/EMBED/ESP"]
 ```
 
 ```sh
-rustsweep --ignore third_party --ignore '**/build-cache'
+buildrake --ignore third_party --ignore '**/build-cache'
 ```
 
 **`--ignore` adds to the config's list; it never replaces it.** Repeat the flag
@@ -57,7 +57,7 @@ That is a string comparison against a `HashSet` — free, and exactly how the
 built-ins work.
 
 A glob has to be matched against the directory's *absolute* path, and getting
-that requires resolving the path — a filesystem call per directory. rustsweep
+that requires resolving the path — a filesystem call per directory. buildrake
 gates this on whether any glob is configured at all, so a name-only ignore list
 never touches the filesystem for matching. Configure a single glob and the whole
 walk switches on that cost.
@@ -88,7 +88,7 @@ Pointing `--path` directly at an ignored directory scans it anyway:
 
 ```sh
 # even with ignore = ["vendor"] in the config
-rustsweep --path ~/Code/vendor
+buildrake --path ~/Code/vendor
 ```
 
 An explicit target on the command line is an explicit request, and it beats a

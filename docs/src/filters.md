@@ -21,7 +21,7 @@ Set both and a directory has to pass **both** to be cleaned — it must be old
 *and* big:
 
 ```sh
-rustsweep --path ~/Code --keep-days 30 --keep-size 500MB
+buildrake --path ~/Code --keep-days 30 --keep-size 500MB
 ```
 
 Both bounds are inclusive on the clean side: exactly 500 MB is cleaned, and a
@@ -61,7 +61,7 @@ blocks allocated. This applies to `--keep-size`, to `--show-size`, and to the
 
 `du` reports allocated blocks by default, so totals will differ a little. On a
 filesystem with compression or deduplication (APFS, Btrfs, ZFS) they can differ
-by a lot, and rustsweep's number will read high. `du --apparent-size` is the
+by a lot, and buildrake's number will read high. `du --apparent-size` is the
 comparable measurement.
 
 ## What happens when a directory can't be fully read

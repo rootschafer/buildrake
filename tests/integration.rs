@@ -1,5 +1,5 @@
 //! End-to-end tests: build a tree of dummy Cargo projects in a temp dir, run the
-//! real `rustsweep` binary against it, and assert on the resulting filesystem
+//! real `buildrake` binary against it, and assert on the resulting filesystem
 //! state and output. Fixtures use fabricated build directories (a cargo-authored
 //! `CACHEDIR.TAG`) so we don't need to actually compile anything — `cargo clean`
 //! still removes a project's real target dir, and the scan removes strays.
@@ -21,7 +21,7 @@ const OTHER_TAG: &str = "Signature: 8a477f597d28d172789f06886806bc55\n\
 	# created by some other tool\n";
 
 fn bin() -> &'static str {
-	env!("CARGO_BIN_EXE_rustsweep")
+	env!("CARGO_BIN_EXE_buildrake")
 }
 
 fn tmp() -> TempDir {
@@ -66,7 +66,7 @@ fn make_other_cache(dir: &Path) {
 }
 
 /// Points the binary at a config file that doesn't exist, so a real
-/// `~/.config/rustsweep/config.toml` on the machine running the tests can
+/// `~/.config/buildrake/config.toml` on the machine running the tests can
 /// never perturb them.
 fn no_config(root: &Path) -> std::path::PathBuf {
 	root.join("no-such-config.toml")
@@ -77,7 +77,7 @@ fn run(root: &Path, args: &[&str]) -> Output {
 		.arg("--path")
 		.arg(root)
 		.args(args)
-		.env("RUSTSWEEP_CONFIG", no_config(root))
+		.env("BUILDRAKE_CONFIG", no_config(root))
 		.stdin(Stdio::null()) // closed stdin => any prompt answers "no"
 		.output()
 		.unwrap()
@@ -91,7 +91,7 @@ fn run_with_config(root: &Path, config: &str, args: &[&str]) -> Output {
 		.arg("--path")
 		.arg(root)
 		.args(args)
-		.env("RUSTSWEEP_CONFIG", &cfg)
+		.env("BUILDRAKE_CONFIG", &cfg)
 		.stdin(Stdio::null())
 		.output()
 		.unwrap()
@@ -102,7 +102,7 @@ fn run_input(root: &Path, args: &[&str], input: &str) -> Output {
 		.arg("--path")
 		.arg(root)
 		.args(args)
-		.env("RUSTSWEEP_CONFIG", no_config(root))
+		.env("BUILDRAKE_CONFIG", no_config(root))
 		.stdin(Stdio::piped())
 		.stdout(Stdio::piped())
 		.stderr(Stdio::piped())
@@ -835,7 +835,7 @@ fn a_missing_config_behaves_like_no_config() {
 		.arg("--path")
 		.arg(t.path())
 		.arg("--yes")
-		.env("RUSTSWEEP_CONFIG", t.path().join("nope.toml"))
+		.env("BUILDRAKE_CONFIG", t.path().join("nope.toml"))
 		.stdin(Stdio::null())
 		.output()
 		.unwrap();
@@ -923,7 +923,7 @@ fn completions_print_a_script_and_scan_nothing() {
 
 	assert!(o.status.success(), "--completions zsh exits cleanly");
 	assert!(
-		stdout(&o).contains("#compdef rustsweep"),
+		stdout(&o).contains("#compdef buildrake"),
 		"emits a zsh completion script:\n{}",
 		stdout(&o)
 	);

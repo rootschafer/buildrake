@@ -1,3 +1,3 @@
 fn main() {
-	rustsweep::cli::run_cli();
+	buildrake::cli::run_cli();
 }

@@ -1,6 +1,6 @@
 # Installation
 
-Every option below gets you the same single binary, `rustsweep`. It has no
+Every option below gets you the same single binary, `buildrake`. It has no
 runtime dependencies except `cargo` itself, which it shells out to for
 `cargo metadata` and `cargo clean`.
 
@@ -13,13 +13,13 @@ newest release.
 **macOS / Linux**
 
 ```sh
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/rootschafer/rustsweep/releases/latest/download/rustsweep-installer.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/rootschafer/buildrake/releases/latest/download/buildrake-installer.sh | sh
 ```
 
 **Windows (PowerShell)**
 
 ```powershell
-powershell -ExecutionPolicy Bypass -c "irm https://github.com/rootschafer/rustsweep/releases/latest/download/rustsweep-installer.ps1 | iex"
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/rootschafer/buildrake/releases/latest/download/buildrake-installer.ps1 | iex"
 ```
 
 Piping a script to a shell is worth being deliberate about. Both scripts are
@@ -28,32 +28,48 @@ the release, so you can read either one first — drop the `| sh` and look.
 
 ## Prebuilt archives
 
-The [releases page](https://github.com/rootschafer/rustsweep/releases) carries
+The [releases page](https://github.com/rootschafer/buildrake/releases) carries
 an archive per platform, each with a `.sha256` checksum beside it:
 
 | Platform | Archive |
 | --- | --- |
-| macOS (Apple silicon) | `rustsweep-aarch64-apple-darwin.tar.xz` |
-| macOS (Intel) | `rustsweep-x86_64-apple-darwin.tar.xz` |
-| Linux (arm64) | `rustsweep-aarch64-unknown-linux-gnu.tar.xz` |
-| Linux (x86_64) | `rustsweep-x86_64-unknown-linux-gnu.tar.xz` |
-| Windows (x86_64) | `rustsweep-x86_64-pc-windows-msvc.zip` |
+| macOS (Apple silicon) | `buildrake-aarch64-apple-darwin.tar.xz` |
+| macOS (Intel) | `buildrake-x86_64-apple-darwin.tar.xz` |
+| Linux (arm64) | `buildrake-aarch64-unknown-linux-gnu.tar.xz` |
+| Linux (x86_64) | `buildrake-x86_64-unknown-linux-gnu.tar.xz` |
+| Windows (x86_64) | `buildrake-x86_64-pc-windows-msvc.zip` |
 
-Unpack it and move `rustsweep` somewhere on your `PATH`. Each archive also
-contains the man page, `rustsweep.1`, which `man ./rustsweep.1` will read
+Unpack it and move `buildrake` somewhere on your `PATH`. Each archive also
+contains the man page, `buildrake.1`, which `man ./buildrake.1` will read
 without installing it.
+
+## From crates.io
+
+```sh
+cargo install buildrake
+```
+
+compiles the latest release from source. If you have
+[cargo-binstall](https://github.com/cargo-bins/cargo-binstall),
+
+```sh
+cargo binstall buildrake
+```
+
+fetches the same prebuilt binary the installer script would, without waiting
+for a compile.
 
 ## From source
 
 ```sh
-cargo install --git https://github.com/rootschafer/rustsweep
+cargo install --git https://github.com/rootschafer/buildrake
 ```
 
 or, from a checkout:
 
 ```sh
-git clone https://github.com/rootschafer/rustsweep
-cd rustsweep
+git clone https://github.com/rootschafer/buildrake
+cd buildrake
 cargo install --path .
 ```
 
@@ -65,20 +81,20 @@ the flags it actually accepts. Supported shells: `bash`, `zsh`, `fish`,
 
 ```sh
 # zsh — anywhere on your $fpath
-rustsweep --completions zsh > ~/.zfunc/_rustsweep
+buildrake --completions zsh > ~/.zfunc/_buildrake
 
 # bash
-rustsweep --completions bash > /etc/bash_completion.d/rustsweep
+buildrake --completions bash > /etc/bash_completion.d/buildrake
 
 # fish
-rustsweep --completions fish > ~/.config/fish/completions/rustsweep.fish
+buildrake --completions fish > ~/.config/fish/completions/buildrake.fish
 ```
 
 ## Verifying the install
 
 ```sh
-rustsweep --version
-rustsweep --path . --dry-run
+buildrake --version
+buildrake --path . --dry-run
 ```
 
 The second command is safe anywhere: `--dry-run` prints what it would do and

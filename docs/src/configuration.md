@@ -1,6 +1,6 @@
 # Configuration
 
-The config file is **optional**. With no config file, rustsweep behaves exactly
+The config file is **optional**. With no config file, buildrake behaves exactly
 as if the feature didn't exist — there is nothing to set up before the first
 run.
 
@@ -8,11 +8,11 @@ run.
 
 The first of these that applies wins:
 
-1. `$RUSTSWEEP_CONFIG`, if set — the full path to the file, not a directory.
+1. `$BUILDRAKE_CONFIG`, if set — the full path to the file, not a directory.
    This is an escape hatch (and what the test suite uses to stay hermetic).
-2. `$XDG_CONFIG_HOME/rustsweep/config.toml`, if `$XDG_CONFIG_HOME` is set to an
+2. `$XDG_CONFIG_HOME/buildrake/config.toml`, if `$XDG_CONFIG_HOME` is set to an
    absolute path.
-3. `~/.config/rustsweep/config.toml`.
+3. `~/.config/buildrake/config.toml`.
 
 ## Precedence
 
@@ -21,7 +21,7 @@ The first of these that applies wins:
 A config file can turn something on for every run, and passing the flag
 explicitly on the command line still wins for that run. The one thing it can't
 do is turn something *off* that the config turned on — there are no `--no-*`
-flags today. Use `$RUSTSWEEP_CONFIG` pointed at an empty file if you need a
+flags today. Use `$BUILDRAKE_CONFIG` pointed at an empty file if you need a
 run with the config out of the way entirely.
 
 There is one deliberate exception to "per setting": `ignore` is **additive**.
@@ -48,15 +48,15 @@ Every key is optional and named after its flag.
 
 ## <a id="there-is-no-yes-key"></a>There is no `yes` key
 
-Cleaning without a prompt is the one thing rustsweep does that you can't undo.
+Cleaning without a prompt is the one thing buildrake does that you can't undo.
 Leaving that armed in a file — where it applies to every future run, including
 ones you fire off without thinking about which directory you're in — is a
 different risk from typing it once. So `--yes` is command-line only, and `yes`
 in the config is not merely ignored but **rejected as an unknown key**:
 
 ```console
-$ rustsweep --path ~/Code
-Warning: invalid config at ~/.config/rustsweep/config.toml: unknown field `yes`; using defaults.
+$ buildrake --path ~/Code
+Warning: invalid config at ~/.config/buildrake/config.toml: unknown field `yes`; using defaults.
 ```
 
 Note what happens there: the whole file is discarded and the run continues on
@@ -74,7 +74,7 @@ built-in defaults. Which brings us to —
 
 ## The annotated example
 
-This is [`config.example.toml`](https://github.com/rootschafer/rustsweep/blob/main/config.example.toml)
+This is [`config.example.toml`](https://github.com/rootschafer/buildrake/blob/main/config.example.toml)
 from the repository, included here directly so it can't drift from the file
 that ships:
 

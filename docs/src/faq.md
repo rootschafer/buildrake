@@ -12,7 +12,7 @@ Work down this list:
    they keep.
 3. **It's under an ignored directory.** Anything matching your ignore list, or
    the built-ins `.git`/`node_modules`/`.jj`, is never scanned. Try
-   `rustsweep --path <the project itself> --dry-run`: the search root is exempt
+   `buildrake --path <the project itself> --dry-run`: the search root is exempt
    from the ignore list, so if that finds it, the ignore list was the reason.
 4. **`--max-depth` cut it off**, or it was behind a symlink and
    `--follow-symlinks` wasn't set.
@@ -25,14 +25,14 @@ Work down this list:
 
 ### Why is it reporting a build directory in a project I deleted?
 
-That's the orphan case, and it's exactly what `--orphans` is for. rustsweep
+That's the orphan case, and it's exactly what `--orphans` is for. buildrake
 won't remove it on its own because it can't tell your live `--target-dir` from
 an abandoned one. See
 [the classification](how-it-decides.md#stage-3--the-classification).
 
 ### The sizes don't match `du`.
 
-Expected. rustsweep reports apparent sizes (the sum of file lengths); `du`
+Expected. buildrake reports apparent sizes (the sum of file lengths); `du`
 reports allocated blocks. Compare against `du --apparent-size`, and see
 [apparent sizes](filters.md#apparent-sizes). On a compressing or deduplicating
 filesystem the gap can be large.
@@ -51,7 +51,7 @@ No. Names are not what it matches on; a cargo-authored `CACHEDIR.TAG` is. See
 ### Will it delete another tool's cache?
 
 No. Many tools write a `CACHEDIR.TAG` — it's a shared convention — but the file's
-body has to mention cargo. rustsweep reads the body.
+body has to mention cargo. buildrake reads the body.
 
 ### Can I put `yes = true` in the config file?
 
@@ -61,11 +61,11 @@ irreversible thing here, so it has to be typed per run.
 
 ### How do I turn off something my config file turned on, for one run?
 
-There are no `--no-*` flags today. Point `$RUSTSWEEP_CONFIG` at a file that
+There are no `--no-*` flags today. Point `$BUILDRAKE_CONFIG` at a file that
 doesn't exist to run with the config out of the way entirely:
 
 ```sh
-RUSTSWEEP_CONFIG=/nonexistent rustsweep --path ~/Code --dry-run
+BUILDRAKE_CONFIG=/nonexistent buildrake --path ~/Code --dry-run
 ```
 
 If you find yourself doing that often, the `--no-*` flags are a deferred idea
@@ -90,11 +90,11 @@ everything — safe, but it won't clean anything either.
 
 ### Does it need cargo installed?
 
-Yes. rustsweep shells out to `cargo metadata` to resolve projects and to
+Yes. buildrake shells out to `cargo metadata` to resolve projects and to
 `cargo clean` to clean them. The prebuilt binaries don't need a Rust toolchain
 to *install*, but they need one to run.
 
 ### Where do I report something?
 
-[github.com/rootschafer/rustsweep/issues](https://github.com/rootschafer/rustsweep/issues).
+[github.com/rootschafer/buildrake/issues](https://github.com/rootschafer/buildrake/issues).
 Output from a `--dry-run --show-size -v` run is the most useful thing to attach.

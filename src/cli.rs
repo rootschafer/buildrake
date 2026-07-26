@@ -33,11 +33,11 @@ pub fn docs_command() -> clap::Command {
 /// and stray/orphaned build dirs are detected by cargo's `CACHEDIR.TAG`.
 #[derive(Parser)]
 #[command(
-	name = "rustsweep",
+	name = "buildrake",
 	version,
 	about,
 	max_term_width = DOC_WIDTH,
-	after_help = "Defaults for these options can be set in ~/.config/rustsweep/config.toml \
+	after_help = "Defaults for these options can be set in ~/.config/buildrake/config.toml \
 (a command-line flag always wins). That file also holds the global ignore list; \
 --ignore adds to it rather than replacing it."
 )]
@@ -242,7 +242,7 @@ mod tests {
 	/// silently break — so assert the ids exist and resolve.
 	#[test]
 	fn flag_ids_are_the_field_names() {
-		let matches = Cli::command().get_matches_from(["rustsweep", "--orphans", "--show-size"]);
+		let matches = Cli::command().get_matches_from(["buildrake", "--orphans", "--show-size"]);
 
 		for id in [
 			"path",
@@ -269,7 +269,7 @@ mod tests {
 
 	#[test]
 	fn config_fills_in_flags_the_cli_left_alone() {
-		let matches = Cli::command().get_matches_from(["rustsweep", "--orphans"]);
+		let matches = Cli::command().get_matches_from(["buildrake", "--orphans"]);
 
 		assert!(merge_bool(&matches, "orphans", true, Some(false)), "CLI wins over config");
 		assert!(merge_bool(&matches, "verbose", false, Some(true)), "config enables it");

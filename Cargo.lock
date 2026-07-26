@@ -78,6 +78,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "buildrake"
+version = "0.1.4"
+dependencies = [
+ "cargo_metadata",
+ "clap",
+ "clap-markdown",
+ "clap_complete",
+ "clap_mangen",
+ "filetime",
+ "globset",
+ "indicatif",
+ "rayon",
+ "serde",
+ "tempfile",
+ "toml",
+]
+
+[[package]]
 name = "bumpalo"
 version = "3.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -510,24 +528,6 @@ dependencies = [
  "libc",
  "linux-raw-sys",
  "windows-sys",
-]
-
-[[package]]
-name = "rustsweep"
-version = "0.1.4"
-dependencies = [
- "cargo_metadata",
- "clap",
- "clap-markdown",
- "clap_complete",
- "clap_mangen",
- "filetime",
- "globset",
- "indicatif",
- "rayon",
- "serde",
- "tempfile",
- "toml",
 ]
 
 [[package]]

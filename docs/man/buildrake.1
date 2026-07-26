@@ -1,10 +1,10 @@
 .ie \n(.g .ds Aq \(aq
 .el .ds Aq '
-.TH rustsweep 1  "rustsweep 0.1.4" 
+.TH buildrake 1  "buildrake 0.1.4" 
 .SH NAME
-rustsweep \- Frees disk space by cleaning the build artifacts of every Rust project under a directory, including the stray build dirs `cargo clean` can\*(Aqt reach.
+buildrake \- Frees disk space by cleaning the build artifacts of every Rust project under a directory, including the stray build dirs `cargo clean` can\*(Aqt reach.
 .SH SYNOPSIS
-\fBrustsweep\fR [\fB\-p\fR|\fB\-\-path\fR] [\fB\-L\fR|\fB\-\-follow\-symlinks\fR] [\fB\-d\fR|\fB\-\-max\-depth\fR] [\fB\-\-ignore\fR] [\fB\-y\fR|\fB\-\-yes\fR] [\fB\-\-orphans\fR] [\fB\-n\fR|\fB\-\-dry\-run\fR] [\fB\-v\fR|\fB\-\-verbose\fR] [\fB\-s\fR|\fB\-\-show\-size\fR] [\fB\-\-keep\-days\fR] [\fB\-\-keep\-size\fR] [\fB\-h\fR|\fB\-\-help\fR] [\fB\-V\fR|\fB\-\-version\fR] 
+\fBbuildrake\fR [\fB\-p\fR|\fB\-\-path\fR] [\fB\-L\fR|\fB\-\-follow\-symlinks\fR] [\fB\-d\fR|\fB\-\-max\-depth\fR] [\fB\-\-ignore\fR] [\fB\-y\fR|\fB\-\-yes\fR] [\fB\-\-orphans\fR] [\fB\-n\fR|\fB\-\-dry\-run\fR] [\fB\-v\fR|\fB\-\-verbose\fR] [\fB\-s\fR|\fB\-\-show\-size\fR] [\fB\-\-keep\-days\fR] [\fB\-\-keep\-size\fR] [\fB\-h\fR|\fB\-\-help\fR] [\fB\-V\fR|\fB\-\-version\fR] 
 .SH DESCRIPTION
 Frees disk space by cleaning the build artifacts of every Rust project under a directory, including the stray build dirs `cargo clean` can\*(Aqt reach.
 .SH OPTIONS
@@ -48,6 +48,6 @@ Print help
 \fB\-V\fR, \fB\-\-version\fR
 Print version
 .SH EXTRA
-Defaults for these options can be set in ~/.config/rustsweep/config.toml (a command\-line flag always wins). That file also holds the global ignore list; \-\-ignore adds to it rather than replacing it.
+Defaults for these options can be set in ~/.config/buildrake/config.toml (a command\-line flag always wins). That file also holds the global ignore list; \-\-ignore adds to it rather than replacing it.
 .SH VERSION
 v0.1.4

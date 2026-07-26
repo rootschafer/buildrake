@@ -1,7 +1,7 @@
-# rustsweep
+# buildrake
 
-[![CI](https://github.com/rootschafer/rustsweep/actions/workflows/ci.yml/badge.svg)](https://github.com/rootschafer/rustsweep/actions/workflows/ci.yml)
-[![Docs](https://github.com/rootschafer/rustsweep/actions/workflows/docs.yml/badge.svg)](https://rootschafer.github.io/rustsweep/)
+[![CI](https://github.com/rootschafer/buildrake/actions/workflows/ci.yml/badge.svg)](https://github.com/rootschafer/buildrake/actions/workflows/ci.yml)
+[![Docs](https://github.com/rootschafer/buildrake/actions/workflows/docs.yml/badge.svg)](https://rootschafer.github.io/buildrake/)
 
 A simple tool to save space on your computer by cleaning up the build artifacts
 of Rust projects. Point it at a directory; it finds every Cargo project beneath
@@ -11,44 +11,53 @@ clean` can't reach — renamed `target/`s, dirs left behind by
 at all. Already-clean projects are skipped. Nothing is deleted without a `y`
 unless you pass `--yes`.
 
-**📖 [Documentation](https://rootschafer.github.io/rustsweep/)** — installation,
+**📖 [Documentation](https://rootschafer.github.io/buildrake/)** — installation,
 a walkthrough of the first run, the config file, ignore patterns, and
-[how it decides what to delete](https://rootschafer.github.io/rustsweep/how-it-decides.html).
+[how it decides what to delete](https://rootschafer.github.io/buildrake/how-it-decides.html).
 
 # Install
 
 No Rust toolchain needed — the installer fetches a prebuilt binary:
 
 ```sh
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/rootschafer/rustsweep/releases/latest/download/rustsweep-installer.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/rootschafer/buildrake/releases/latest/download/buildrake-installer.sh | sh
 ```
 
 ```powershell
-powershell -ExecutionPolicy Bypass -c "irm https://github.com/rootschafer/rustsweep/releases/latest/download/rustsweep-installer.ps1 | iex"
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/rootschafer/buildrake/releases/latest/download/buildrake-installer.ps1 | iex"
 ```
 
-Or from source:
+Or from crates.io — prebuilt binary with
+[cargo-binstall](https://github.com/cargo-bins/cargo-binstall), source build
+otherwise:
 
 ```sh
-cargo install --git https://github.com/rootschafer/rustsweep
+cargo binstall buildrake   # fetches the release binary
+cargo install buildrake    # compiles from source
+```
+
+To build the unreleased main branch instead:
+
+```sh
+cargo install --git https://github.com/rootschafer/buildrake
 ```
 
 Per-platform archives and checksums are on the
-[releases page](https://github.com/rootschafer/rustsweep/releases); see the
-[installation chapter](https://rootschafer.github.io/rustsweep/installation.html)
+[releases page](https://github.com/rootschafer/buildrake/releases); see the
+[installation chapter](https://rootschafer.github.io/buildrake/installation.html)
 for the full set.
 
 # Usage
 
-Output of `rustsweep -h` — generated from the source, so it can't go stale.
-`rustsweep --help` prints the same options with fuller descriptions:
+Output of `buildrake -h` — generated from the source, so it can't go stale.
+`buildrake --help` prints the same options with fuller descriptions:
 
-<!-- BEGIN GENERATED: rustsweep -h -->
+<!-- BEGIN GENERATED: buildrake -h -->
 ```
 Frees disk space by cleaning the build artifacts of every Rust project under a directory, including
 the stray build dirs `cargo clean` can't reach.
 
-Usage: rustsweep [OPTIONS]
+Usage: buildrake [OPTIONS]
 
 Options:
   -p, --path <PATH>        Sets the starting directory for the search [default: .]
@@ -76,7 +85,7 @@ Options:
   -h, --help               Print help
   -V, --version            Print version
 
-Defaults for these options can be set in ~/.config/rustsweep/config.toml (a command-line flag always
+Defaults for these options can be set in ~/.config/buildrake/config.toml (a command-line flag always
 wins). That file also holds the global ignore list; --ignore adds to it rather than replacing it.
 ```
 <!-- END GENERATED -->
@@ -84,28 +93,28 @@ wins). That file also holds the global ignore list; --ignore adds to it rather t
 A good first run — see what's there without touching anything:
 
 ```sh
-rustsweep --path ~/Code --dry-run --show-size
+buildrake --path ~/Code --dry-run --show-size
 ```
 
 ## Shell completions
 
-`rustsweep --completions <shell>` writes a completion script to stdout for
+`buildrake --completions <shell>` writes a completion script to stdout for
 `bash`, `zsh`, `fish`, `elvish`, or `powershell`. It's generated from the live
 command definition, so it can't fall behind the flags:
 
 ```sh
-rustsweep --completions zsh > ~/.zfunc/_rustsweep     # then: fpath+=~/.zfunc
-rustsweep --completions bash > /etc/bash_completion.d/rustsweep
+buildrake --completions zsh > ~/.zfunc/_buildrake     # then: fpath+=~/.zfunc
+buildrake --completions bash > /etc/bash_completion.d/buildrake
 ```
 
-A man page ships in every release archive; `man ./rustsweep.1` reads it without
+A man page ships in every release archive; `man ./buildrake.1` reads it without
 installing.
 
 # Configuration
 
 Persistent defaults can live in an **optional** config file at
-`~/.config/rustsweep/config.toml` (or `$XDG_CONFIG_HOME/rustsweep/config.toml`
-if that's set; `$RUSTSWEEP_CONFIG` overrides both). With no config file,
+`~/.config/buildrake/config.toml` (or `$XDG_CONFIG_HOME/buildrake/config.toml`
+if that's set; `$BUILDRAKE_CONFIG` overrides both). With no config file,
 behavior is exactly as it is without one — nothing to set up.
 
 **Precedence is CLI flag > config value > built-in default**, per setting. So a
@@ -144,14 +153,14 @@ Two things worth knowing before you rely on the numbers:
 Full detail — the annotated
 [`config.example.toml`](config.example.toml), the pattern rules and their cost,
 the filter semantics — is in the book:
-[Configuration](https://rootschafer.github.io/rustsweep/configuration.html),
-[Ignore patterns](https://rootschafer.github.io/rustsweep/ignore-patterns.html),
-[Filters](https://rootschafer.github.io/rustsweep/filters.html).
+[Configuration](https://rootschafer.github.io/buildrake/configuration.html),
+[Ignore patterns](https://rootschafer.github.io/buildrake/ignore-patterns.html),
+[Filters](https://rootschafer.github.io/buildrake/filters.html).
 
 # Documentation
 
 The book lives in [`docs/`](docs/) and is published to
-<https://rootschafer.github.io/rustsweep/> by `.github/workflows/docs.yml` on
+<https://rootschafer.github.io/buildrake/> by `.github/workflows/docs.yml` on
 every push to `main`.
 
 ```sh
@@ -170,7 +179,7 @@ hand-written. `configuration.md` pulls in the real `config.example.toml` with
 
 ## Generated docs
 
-The usage block above, `docs/src/cli-reference.md`, and `docs/man/rustsweep.1`
+The usage block above, `docs/src/cli-reference.md`, and `docs/man/buildrake.1`
 are all rendered from the clap definitions in `src/cli.rs` and checked by
 `tests/docs.rs`. Editing any of them by hand is a test failure. After changing a
 flag, its help text, or the version:

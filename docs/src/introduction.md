@@ -6,7 +6,7 @@ checkouts on disk, most of that space is holding output for projects you last
 touched a year ago.
 
 `cargo clean` fixes one project at a time, and only if you remember where the
-project is. **rustsweep** points at a directory, finds every Cargo project
+project is. **buildrake** points at a directory, finds every Cargo project
 beneath it, cleans each workspace exactly once, and — this is the part
 `cargo clean` genuinely cannot do — also removes the build directories that no
 longer belong to any project cargo can see: a renamed `target/`, a directory
@@ -14,7 +14,7 @@ left behind by `cargo build --target-dir`, or leftovers from an old
 `build.target-dir` setting.
 
 ```console
-$ rustsweep --path ~/Code --dry-run --show-size
+$ buildrake --path ~/Code --dry-run --show-size
 Scanned 61034 directories: found 1412 project(s) and 388 build dir(s).
 Dry run — nothing will be deleted.
 Would clean /Users/you/Code/Rust/thing — build dir /Users/you/Code/Rust/thing/target (3.1 GiB)
@@ -25,7 +25,7 @@ Would free ~214.7 GiB.
 ## The safety story
 
 A tool that deletes directories in bulk has exactly one job beyond deleting
-them: never delete the wrong one. rustsweep's answer is a single narrow test.
+them: never delete the wrong one. buildrake's answer is a single narrow test.
 
 > A directory is a Cargo build directory **if and only if** it contains a
 > `CACHEDIR.TAG` file whose body mentions cargo.

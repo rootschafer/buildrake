@@ -77,7 +77,7 @@ the direct scan, so nothing is silently missed.
 Every discovered build directory now falls into exactly one of three cases:
 
 **It is some project's resolved build directory.** → Clean it by running
-`cargo clean` in that project. rustsweep does not delete the directory itself
+`cargo clean` in that project. buildrake does not delete the directory itself
 here; cargo does its own removal, and its `Removed N files` line is cargo's.
 Deduplicated by resolved build directory, so projects sharing one are handled
 once.
@@ -89,7 +89,7 @@ inside is named in the prompt, so you can see what you're being asked about.
 
 **It sits inside no known project at all.** → An orphan. This is the ambiguous
 case: it might be a `--target-dir` you still use, or the remains of a project
-deleted years ago. rustsweep **counts these and tells you, but does not touch
+deleted years ago. buildrake **counts these and tells you, but does not touch
 them** unless you pass `--orphans`.
 
 Every one of those three paths funnels through a single function. There is
@@ -125,7 +125,7 @@ Honesty about the edges:
   every Cargo project underneath it. The build outputs are regenerable by
   definition, but regenerating them costs time.
 - **`cargo clean` removes the whole build directory**, including anything you
-  put inside `target/` yourself. That's cargo's behavior, not rustsweep's, but
+  put inside `target/` yourself. That's cargo's behavior, not buildrake's, but
   it applies all the same.
 - **A file inside a build directory that isn't regenerable is gone.** The
   `CACHEDIR.TAG` contract is a promise from cargo that the directory's contents

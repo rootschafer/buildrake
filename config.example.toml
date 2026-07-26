@@ -1,4 +1,4 @@
-# rustsweep config — copy to ~/.config/rustsweep/config.toml
+# buildrake config — copy to ~/.config/buildrake/config.toml
 #
 # Every key is optional, and a command-line flag always overrides the value here.
 # Unknown keys are an error (so a typo can't silently do nothing); an invalid

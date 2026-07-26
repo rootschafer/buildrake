@@ -1,4 +1,4 @@
-//! The optional config file at `~/.config/rustsweep/config.toml`. Every key
+//! The optional config file at `~/.config/buildrake/config.toml`. Every key
 //! is optional and mirrors a CLI flag; a command-line flag always wins over the
 //! config, which in turn wins over the built-in default. When the file is absent
 //! — the common case — behavior is exactly as if it didn't exist.
@@ -32,12 +32,12 @@ pub(crate) struct Config {
 	pub(crate) ignore: Vec<String>,
 }
 
-/// Where the config lives: `$RUSTSWEEP_CONFIG` if set (an escape hatch, and
-/// what the tests use), else `$XDG_CONFIG_HOME/rustsweep/config.toml`, else
-/// `~/.config/rustsweep/config.toml`. `None` when no home directory can be
+/// Where the config lives: `$BUILDRAKE_CONFIG` if set (an escape hatch, and
+/// what the tests use), else `$XDG_CONFIG_HOME/buildrake/config.toml`, else
+/// `~/.config/buildrake/config.toml`. `None` when no home directory can be
 /// determined at all.
 pub(crate) fn config_path() -> Option<PathBuf> {
-	if let Some(explicit) = env::var_os("RUSTSWEEP_CONFIG") {
+	if let Some(explicit) = env::var_os("BUILDRAKE_CONFIG") {
 		return Some(PathBuf::from(explicit));
 	}
 	let base = env::var_os("XDG_CONFIG_HOME")
@@ -45,7 +45,7 @@ pub(crate) fn config_path() -> Option<PathBuf> {
 		.filter(|p| p.is_absolute())
 		.or_else(|| env::var_os("HOME").map(|h| PathBuf::from(h).join(".config")))
 		.or_else(|| env::var_os("USERPROFILE").map(|h| PathBuf::from(h).join(".config")))?;
-	Some(base.join("rustsweep").join("config.toml"))
+	Some(base.join("buildrake").join("config.toml"))
 }
 
 /// Loads the config. A missing file is the normal case and yields defaults. A

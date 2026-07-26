@@ -16,4 +16,4 @@ targets = ["aarch64-apple-darwin", "aarch64-unknown-linux-gnu", "x86_64-apple-da
 # Extra files to include in each archive. The man page is generated from the
 # clap definitions and kept current by tests/docs.rs, so shipping it can't
 # ship something stale.
-include = ["docs/man/rustsweep.1"]
+include = ["docs/man/buildrake.1"]

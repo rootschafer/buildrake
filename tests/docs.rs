@@ -1,6 +1,6 @@
 //! Keeps the checked-in CLI documentation honest.
 //!
-//! Every artifact here is rendered from `rustsweep::cli::docs_command()` — the
+//! Every artifact here is rendered from `buildrake::cli::docs_command()` — the
 //! same clap definition the binary parses with — and diffed against the copy in
 //! the repo. `UPDATE_DOCS=1 cargo test` rewrites the copies instead of failing,
 //! so the generator and the guard are one piece of code rather than two that can
@@ -12,14 +12,14 @@ use std::{
 	path::{Path, PathBuf},
 };
 
-use rustsweep::cli::docs_command;
+use buildrake::cli::docs_command;
 
 /// Set this to rewrite the checked-in files instead of asserting against them.
 const BLESS_VAR: &str = "UPDATE_DOCS";
 
 /// Where in the README the generated help lives. The markers are load-bearing:
 /// the splice is between them, and prose either side is untouched.
-const README_BEGIN: &str = "<!-- BEGIN GENERATED: rustsweep -h -->";
+const README_BEGIN: &str = "<!-- BEGIN GENERATED: buildrake -h -->";
 const README_END: &str = "<!-- END GENERATED -->";
 
 #[test]
@@ -44,7 +44,7 @@ fn cli_reference_matches_help() {
 
 #[test]
 fn man_page_matches_help() {
-	let path = repo_path("docs/man/rustsweep.1");
+	let path = repo_path("docs/man/buildrake.1");
 	let mut rendered = Vec::new();
 	clap_mangen::Man::new(docs_command())
 		.render(&mut rendered)

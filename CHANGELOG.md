@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Versions before 0.1.4 were never tagged or published — they are reconstructed
-from git history and listed for continuity, dated by their last commit.
+from git history and listed for continuity, dated by their last commit. The
+project was renamed `rust-cleanup` → `rustsweep` → `buildrake` during that
+unpublished period; the entries below use the final name throughout.
 
 ## [Unreleased]
 
@@ -19,7 +21,7 @@ The first release with prebuilt binaries and an installer.
 - Documentation site built with [mdBook](https://rust-lang.github.io/mdBook/),
   published to GitHub Pages from `docs/`.
 - A generated CLI reference, `docs/src/cli-reference.md`, and a man page,
-  `docs/man/rustsweep.1`, both derived from the clap definitions and checked
+  `docs/man/buildrake.1`, both derived from the clap definitions and checked
   against them by tests. The man page ships in the release archives.
 - Hidden `--completions <shell>` flag, printing a shell completion script for
   bash, zsh, fish, elvish, or PowerShell to stdout.
@@ -42,8 +44,8 @@ The first release with prebuilt binaries and an installer.
 
 ### Changed
 
-- Renamed from `rust-cleanup` to `rustsweep`; the binary and the config
-  directory (`~/.config/rustsweep/`) changed with it.
+- Renamed from `rust-cleanup` to `buildrake`; the binary and the config
+  directory (`~/.config/buildrake/`) changed with it.
 - Ignore patterns are now `.gitignore`-style: a bare name matches a directory at
   any depth, anything else is a glob matched against the full path. Bare names
   are matched during the walk and cost nothing, so a name-only ignore list never
@@ -69,8 +71,8 @@ The first release with prebuilt binaries and an installer.
 
 ### Added
 
-- Optional config file at `~/.config/rustsweep/config.toml`
-  (`$XDG_CONFIG_HOME` and `$RUSTSWEEP_CONFIG` are honored). Every key is
+- Optional config file at `~/.config/buildrake/config.toml`
+  (`$XDG_CONFIG_HOME` and `$BUILDRAKE_CONFIG` are honored). Every key is
   optional and named after its flag; precedence is CLI flag > config value >
   built-in default. There is deliberately no `yes` key.
 - `--show-size` to report each build dir's size and a freed-space total.
@@ -106,9 +108,9 @@ The first release with prebuilt binaries and an installer.
   aborting the run.
 - `--orphans` to also remove build dirs with no project around them.
 
-[Unreleased]: https://github.com/rootschafer/rustsweep/compare/v0.1.4...HEAD
-[0.1.4]: https://github.com/rootschafer/rustsweep/releases/tag/v0.1.4
-[0.1.3]: https://github.com/rootschafer/rustsweep/compare/910232c...ffcaa0c
-[0.1.2]: https://github.com/rootschafer/rustsweep/compare/43105bc...910232c
-[0.1.1]: https://github.com/rootschafer/rustsweep/compare/18538db...43105bc
-[0.1.0]: https://github.com/rootschafer/rustsweep/commits/18538db
+[Unreleased]: https://github.com/rootschafer/buildrake/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/rootschafer/buildrake/releases/tag/v0.1.4
+[0.1.3]: https://github.com/rootschafer/buildrake/compare/910232c...ffcaa0c
+[0.1.2]: https://github.com/rootschafer/buildrake/compare/43105bc...910232c
+[0.1.1]: https://github.com/rootschafer/buildrake/compare/18538db...43105bc
+[0.1.0]: https://github.com/rootschafer/buildrake/commits/18538db

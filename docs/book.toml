@@ -1,13 +1,13 @@
 [book]
-title = "rustsweep"
+title = "buildrake"
 description = "Frees disk space by cleaning the build artifacts of every Rust project under a directory, including the stray build dirs `cargo clean` can't reach."
 authors = ["Anders"]
 language = "en"
 src = "src"
 
 [output.html]
-git-repository-url = "https://github.com/rootschafer/rustsweep"
-edit-url-template = "https://github.com/rootschafer/rustsweep/edit/main/docs/{path}"
+git-repository-url = "https://github.com/rootschafer/buildrake"
+edit-url-template = "https://github.com/rootschafer/buildrake/edit/main/docs/{path}"
 default-theme = "rust"
 
 [output.html.fold]

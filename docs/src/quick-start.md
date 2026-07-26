@@ -7,7 +7,7 @@ nothing; `--show-size` measures each build directory so you can see what the
 run is actually worth.
 
 ```sh
-rustsweep --path ~/Code --dry-run --show-size
+buildrake --path ~/Code --dry-run --show-size
 ```
 
 ```console
@@ -55,7 +55,7 @@ And a summary at the end:
 Drop `--dry-run` and you get asked about each one:
 
 ```console
-$ rustsweep --path ~/Code --show-size
+$ buildrake --path ~/Code --show-size
 Scanned 61034 directories: found 1412 project(s) and 388 build dir(s).
 ~/Code/sensor-fw is a Cargo project (build dir: ~/Code/sensor-fw/target (800.1 KiB)). Clean it? (y/n): y
      Removed 3 files, 800.5KiB total
@@ -74,7 +74,7 @@ The `Removed 3 files…` line comes from `cargo clean` itself.
 To skip the prompts entirely:
 
 ```sh
-rustsweep --path ~/Code --yes
+buildrake --path ~/Code --yes
 ```
 
 `--yes` is command-line only, on purpose — it is deliberately not a config key,
@@ -85,10 +85,10 @@ so the irreversible mode always has to be typed. See
 
 A build directory with no project around it is ambiguous: it might be a
 `--target-dir` you still use, or it might be a project you deleted three years
-ago. rustsweep reports these but leaves them alone unless you ask:
+ago. buildrake reports these but leaves them alone unless you ask:
 
 ```sh
-rustsweep --path ~/Code --dry-run --show-size --orphans
+buildrake --path ~/Code --dry-run --show-size --orphans
 ```
 
 ```console
@@ -102,7 +102,7 @@ one — clean the big, cold build directories and leave everything you're active
 working on alone:
 
 ```sh
-rustsweep --path ~/Code --keep-days 30 --keep-size 500MB --yes
+buildrake --path ~/Code --keep-days 30 --keep-size 500MB --yes
 ```
 
 That cleans build directories that are both untouched for 30 days *and* at least
